@@ -1,0 +1,110 @@
+﻿    <domain type='kvm' >
+          
+          <name>template</name>
+          <uuid></uuid>
+          <memory unit='KiB'>1024</memory>
+          <vcpu placement='static' current='1'>16</vcpu>
+          <metadata>
+            <ns0:chost xmlns:ns0="https://github.com/chost-project/chost">
+            <os distro="Windows XP" version="unknown"/>
+            </ns0:chost>
+          </metadata>
+          <os>
+            <type arch='x86_64'>hvm</type>
+            <boot dev='hd'/>
+            <boot dev='cdrom'/>
+          </os>
+          <features>
+            <acpi/>
+            <apic/>
+            <pae/>
+          </features>
+          <cpu>
+              <topology sockets='16' cores='1' threads='1'/>
+          </cpu>
+          <clock offset='variable' adjustment='28800' basic='utc'>
+            <time name='rtc' tickpolicy='catchut' />
+          </clock>
+          <on_poweroff>destroy</on_poweroff>
+          <on_reboot>restart</on_reboot>
+          <on_crash>restart</on_crash>
+          <devices>
+            
+            <disk type='file' device='disk'>
+              <driver name='qemu' type='qcow2'/>
+              <source file='' />
+              <target dev='vda' bus='virtio' />
+            </disk>
+            
+            
+            <disk type='file' device='cdrom'>
+              <driver name='qemu' type='raw'/>
+              <source file='' />
+              <target dev='hdc' bus='ide'/>
+              <readonly/>
+            </disk>
+
+            <graphics type='vnc' port='-1' autoport='yes' keymap='en-us'/>
+            <graphics type='spice' autoport='yes' listen='0.0.0.0'>
+            </graphics>
+        
+            <channel type='spicevmc'>
+              <target type='virtio' name='com.redhat.spice.0'/>
+            </channel>
+            <channel type='spiceport'>
+              <source channel='com.redhat.spice.1'/>
+              <target type='virtio' name='com.redhat.spice.1'/>
+            </channel>
+            <input type='tablet' bus='usb'/>
+            <input type='mouse' bus='ps2'/>
+            <sound model='ich6' />
+            <video>
+                <model type='qxl' ram='65536' vram='32768' heads='1' />
+            </video>
+            <memballoon model='virtio' />
+            <controller type='usb' index='0' model='ich9-ehci1'/>
+            <controller type='usb' index='0' model='ich9-uhci1'>
+              <master startport='0'/>
+            </controller>
+            <controller type='usb' index='0' model='ich9-uhci3'>
+              <master startport='4'/>
+            </controller>
+            <controller type='usb' index='0' model='ich9-uhci2'>
+              <master startport='2'/>
+            </controller>
+            <controller type='usb' index='1' model='ich9-ehci1'/>
+            <controller type='usb' index='1' model='ich9-uhci1'>
+              <master startport='0'/>
+            </controller>
+            <controller type='usb' index='1' model='ich9-uhci3'>
+              <master startport='4'/>
+            </controller>
+            <controller type='usb' index='1' model='ich9-uhci2'>
+              <master startport='2'/>
+            </controller>
+            <controller type='usb' index='2' model='ich9-ehci1'/>
+            <controller type='usb' index='2' model='ich9-uhci1'>
+              <master startport='0'/>
+            </controller>
+            <controller type='usb' index='2' model='ich9-uhci3'>
+              <master startport='4'/>
+            </controller>
+            <controller type='usb' index='2' model='ich9-uhci2'>
+              <master startport='2'/>
+            </controller>
+         	<redirdev bus='usb'  type='spicevmc'>
+                <address type='usb'  bus='0' port='3'/>
+            </redirdev>
+            <redirdev bus='usb'  type='spicevmc'>
+              <address type='usb'  bus='0' port='4'/>
+            </redirdev>
+            <redirdev bus='usb'  type='spicevmc'>
+              <address type='usb'  bus='0' port='5'/>
+            </redirdev>
+            <redirdev bus='usb'  type='spicevmc'>
+               <address type='usb'  bus='0' port='6'/>
+            </redirdev>
+          </devices>
+
+
+        </domain>
