@@ -1,0 +1,43 @@
+<domian type = 'kvm'>           //vm style
+    <name>demo</name>           //vm name : domain
+    <memory>1048576</memory>    //spit mem (kb)
+    <vcpu>1</vcpu>              //spit vcpu (per)
+    <os>
+        <type arch = 'x86_64' machine = 'pc'>hvm</type>
+        <boot dev = 'cdrom'/>   //cd boot
+        <boot dev = 'hd'/>      //hardstate boot
+    </os>
+    <features>
+        <acpi/>
+        <apic/>
+        <pae/>
+    </features>
+    <clock offset = 'localtime'/>
+    <on_poweroff>destroy</on_poweroff>
+    <on_reboot>restart</on_reboot>
+    <on_crash>destroy</on_crash>
+    <devices>
+        <emulator>/usr/bin/kvm</emulator>
+        <disk type = 'file' device = 'disk'> //img
+            <driver name = 'qemu' type = 'raw'/>
+            <source file = '/root/home/virsh/make_img/template.img'/>
+            <targert dev = 'hda' bus = 'ide'/>
+        </disk>
+        <disk type = 'file' device="cdrom"> //iso
+            <source file = '/home/git/home/kali_iso/WindowsXPprosp3VOL.iso'/>
+            <targert dev = 'hdb' bus = 'ide'/>
+        </disk>
+        <interface type = 'bridge'> // defalut NAT  but bridge is suitble for developer
+            <source bridge = 'br0'/>
+        </interface>
+        <input type = 'tablet' bus = 'usb'/>
+        <input type = 'mouse'  bus = 'ps2'/>
+        <graphics type = 'vnc' port = '-1' listen = '0.0.0.0'
+                  autoport = 'yes' keymap = 'en-us'/>   //vnc port 系统自动配置
+
+    </devices>
+</domian>
+
+
+
+
