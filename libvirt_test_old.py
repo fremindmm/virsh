@@ -2,12 +2,6 @@
 #coding=utf-8
 import libvirt
 
-'''
-/etc/libvirt/libvirt.conf
-aliases=[
-	"remote43=qemu+ssh://192.168.7.43/system"
-]
-'''
 conn = libvirt.open('remote43')
 
 for id in conn.listDomainsID():
