@@ -7,9 +7,10 @@ import libvirt
 aliases=[
 	"remote43=qemu+ssh://192.168.7.43/system"
 ]
+service libvirtd reload
 '''
-conn = libvirt.open('remote43')
-
+#conn = libvirt.open('remote43')
+conn = libvirt.openReadOnly('remote43')
 for id in conn.listDomainsID():
     dom = conn.lookupByID(id)
     print "dom %s State %s" % (dom.name(), dom.info())
