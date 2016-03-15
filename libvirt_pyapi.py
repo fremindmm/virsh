@@ -49,8 +49,9 @@ def getDomInfoByID(conn, id):
     print "Domain is is %d; Name is %s" % (myDom.ID(), myDom.name())
 
 if __name__ == '__main__':
-    name1 = "kvm-guest"
+    name1 = "winxp"
     name2 = "notExits"
+    id1 = 2
     id2 = 9999
     print "----Get domain info via libvirt python API----"
     conn = createConnection()
